@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	 <!--本Project識別-->
+	<artifactId>chok-demo</artifactId>
+	<!--表示打包Project的型態,可能為Jar、war、ear或pom，若是使用了android 則為apk-->
+	<packaging>war</packaging>
+	<!--以下是給工具看的,主要是本Project的資訊-->
+	<name>chok-demo</name>
+	
+	<parent>
+		<groupId>com.chok</groupId>
+		<artifactId>chok-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../chok-parent/pom.xml</relativePath>
+	</parent>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<chok.version>1.0</chok.version>
+	</properties>
+
+	<dependencies>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-util</artifactId><version>${chok.version}</version></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-devwork</artifactId><version>${chok.version}</version></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId><version>${chok.version}</version></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId><version>${chok.version}</version></dependency>
+	</dependencies>
+
+	<!-- maven 打包插件 -->
+	<build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+	            <includes>
+	                <include>**/*.properties</include>
+	                <include>**/*.xml</include>
+	            </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+		<plugins>
+			<!-- 
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <configuration>
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
+			        <skipTests>true</skipTests>    默认关掉单元测试
+			    </configuration>
+			</plugin>
+			 -->
+			<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+		</plugins>
+		<finalName>chok-demo</finalName>
+	</build>
+</project>

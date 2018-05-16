@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+
+
+<mapper namespace="com.admin.entity.TbHd">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="com.admin.entity.TbHd" useGeneratedKeys="true" keyProperty="id">  
+       	insert into tb_hd 
+       	( id, code) 
+       	values
+       	( #{id}, #{code})
+    </insert>  
+	
+	<delete id="del" parameterType="com.admin.entity.TbHd">
+		delete from tb_hd
+		 where id = #{id}  	  
+	</delete>
+	
+	<update id="upd" parameterType="com.admin.entity.TbHd">
+		update tb_hd set
+	           code = #{code} 
+         where id = #{id}  	        
+	</update>
+  	
+	<resultMap type="com.admin.entity.TbHd" id="result">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+	</resultMap>
+	
+	<resultMap type="com.admin.entity.TbHd" id="result1">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <collection property="tbDtList" resultMap="tbDtResult" />
+	</resultMap>
+	
+	<resultMap type="com.admin.entity.TbDt" id="tbDtResult">
+        <id property="id" column="tbDtId"/>
+        <result property="pid" column="tbDtPid"/>
+        <result property="code" column="tbDtCode"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		t.id, t.code 
+	</sql>
+	<sql id="columns1">
+		t.id, t.code, t1.id tbDtId, t1.pid tbDtPid, t1.code tbDtCode 
+	</sql>
+	
+	<sql id="order">
+		<choose>
+			<when test="@chok.devwork.Ognl@isNotEmpty(sort)">
+				order by tt.<include refid="orderParse1"/> ${order}
+			</when>
+			<when test="@chok.devwork.Ognl@isNotEmpty(multiSort) and @chok.devwork.Ognl@isEmpty(sort)">
+				order by <foreach collection="multiSort" index="index" item="item" separator=",">tt.<include refid="orderParse2" /> ${item.sortOrder}</foreach>  
+			</when>
+		</choose>
+	</sql>
+	<sql id="orderParse1">
+		<if test="sort == 'id'">id</if>
+		<if test="sort == 'code'">code</if>
+	</sql>
+	<sql id="orderParse2">
+		<if test="item.sortName == 'id'">id</if>
+		<if test="item.sortName == 'code'">code</if>
+	</sql>
+	
+	<sql id="page">
+		<if test="@chok.devwork.Ognl@isNotEmpty(offset) and @chok.devwork.Ognl@isNotEmpty(limit)"> limit #{offset,javaType=String,jdbcType=NUMERIC}, #{limit,javaType=String,jdbcType=NUMERIC} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>	      				
+	       <if test="@chok.devwork.Ognl@isNotEmpty(code)"> and t.code like concat('%',#{code},'%')</if>
+	       <if test="@chok.devwork.Ognl@isNotEmpty(search)"> and (t.code like concat('%',#{search},'%'))</if>	
+		</where>
+	</sql>	
+	
+	<select id="get" resultMap="result">
+		select <include refid="columns"/> 
+		  from tb_hd t
+		 where t.id = #{id}  	  
+	</select>
+<!-- 	
+	<select id="get" resultMap="result1">
+		select <include refid="columns1"/> 
+		  from tb_hd t join tb_dt t1 on t.id = t1.pid
+		 where t.id = #{id}  	  
+	</select>
+	 -->
+	<select id="query" resultType="list" resultMap="result">
+		select tt.* from 
+		(
+			select <include refid="columns"/> from tb_hd t
+			<include refid="dynamicWhere" />
+		) tt
+		<include refid="order" />
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from tb_hd t
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>  
