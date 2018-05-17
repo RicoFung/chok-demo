@@ -16,14 +16,13 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<chok.version>1.0</chok.version>
 	</properties>
 
 	<dependencies>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-util</artifactId><version>${chok.version}</version></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-devwork</artifactId><version>${chok.version}</version></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId><version>${chok.version}</version></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId><version>${chok.version}</version></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-util</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-devwork</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
 	</dependencies>
 
 	<!-- maven 打包插件 -->
