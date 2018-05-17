@@ -19,42 +19,15 @@
 	</properties>
 
 	<dependencies>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-util</artifactId></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-devwork</artifactId></dependency>
+		<!-- chok -->
 		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
+		<!-- db driver myql-->
+		<dependency><groupId>mysql</groupId><artifactId>mysql-connector-java</artifactId></dependency>
 	</dependencies>
 
 	<!-- maven 打包插件 -->
 	<build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-	            <includes>
-	                <include>**/*.properties</include>
-	                <include>**/*.xml</include>
-	            </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-		<plugins>
-			<!-- 
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-war-plugin</artifactId>
-			    <configuration>
-			        <failOnMissingWebXml>false</failOnMissingWebXml>
-			        <skipTests>true</skipTests>    默认关掉单元测试
-			    </configuration>
-			</plugin>
-			 -->
-			<plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-		</plugins>
 		<finalName>chok-demo</finalName>
 	</build>
 </project>
