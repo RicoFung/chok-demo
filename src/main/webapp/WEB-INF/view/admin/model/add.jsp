@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>新增</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">新增</li>
 		</ol>
 	</section>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form class="dataForm" id="dataForm" action="add2.action" method="post">
+				<form class="dataForm" id="dataForm" action="add2" method="post">
 					<div class="form-group">
 						<label for="category_id">所属分类：</label>
 					 	<select class="form-control input-sm" id="category_id" name="m['category_id']" validate validate-rule-required>
@@ -49,7 +49,7 @@
 /**********************************************************/
 $chok.form.callback = function(){
 	if($chok.result.type == 1){
- 		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+ 		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}
 };
 /**********************************************************/
@@ -60,7 +60,7 @@ $(function(){
 	$chok.auth.btn($chok.view.menuPermitId,$g_btnJson);
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 });
 </script>

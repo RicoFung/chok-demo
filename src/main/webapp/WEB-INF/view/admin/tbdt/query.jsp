@@ -107,7 +107,7 @@ $chok.view.query.callback.onLoadSuccess = function(){
 // OVERWRITE-自定义工具栏
 $chok.view.query.init.toolbar = function(){
 	$("#bar_btn_exp").click(function(){
-		$chok.view.query.fn.exp("exp.action", 
+		$chok.view.query.fn.exp("exp", 
 				                "tb_dt",
 				                "tb_dt", 
 				                "id,pid,code",

@@ -126,13 +126,13 @@ $chok.view.query.callback.onLoadSuccess = function(){
 /* OVERWRITE-初始化工具栏 */
 $chok.view.query.init.toolbar = function(){
 	$("#bar_btn_imp").click(function(){
-		location.href = "imp.action?"+$chok.view.query.fn.getUrlParams();
+		location.href = "imp?"+$chok.view.query.fn.getUrlParams();
 	});
 	$("#bar_btn_exp").click(function(){
-		$chok.view.query.fn.exp('exp.action', 'test','test_title', 'ID,名称,排序', 'id,name,sort');
+		$chok.view.query.fn.exp('exp', 'test','test_title', 'ID,名称,排序', 'id,name,sort');
 	});
 	$("#bar_btn_add").click(function(){
-		location.href = "add.action?"+$chok.view.query.fn.getUrlParams();
+		location.href = "add?"+$chok.view.query.fn.getUrlParams();
 	});
 	$("#bar_btn_del").click(function(){
 		if($chok.view.query.fn.getIdSelections().length<1) {
@@ -146,7 +146,7 @@ $chok.view.query.init.toolbar = function(){
 		    typeAnimated: true,
 		    buttons: {
 		        ok: function() {
-			    		$.post("del.action",{id:$chok.view.query.fn.getIdSelections()},function(result){
+			    		$.post("del",{id:$chok.view.query.fn.getIdSelections()},function(result){
 			    	        $chok.view.query.callback.delRows(result); // 删除行回调
 			    	        if(!result.success) {
 				    	        	$.alert({title: "提示", type:"green", content: result.msg});

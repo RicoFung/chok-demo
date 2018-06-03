@@ -62,8 +62,8 @@
 								<li>
 									<ul id="user-dropdown-menu" class="menu">
 										<li menuId="userinfo"><a href="#"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
-										<li menuId="password"><a href="${ctx}/cas/password.action"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
-										<li menuId="logout"><a href="${ctx}/cas/logout.action"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+										<li menuId="password"><a href="${ctx}/cas/password"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
+										<li menuId="logout"><a href="${ctx}/cas/logout"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
 									</ul>
 								</li>
 							</ul>
@@ -94,7 +94,7 @@
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${LoginUser==null}"> 
-						<li><a href="http://localhost:8585/sso/auth/login.action?service=http://localhost:9090/sbframework"><i class="glyphicon glyphicon-log-in"></i>登录</a></li>
+						<li><a href="http://localhost:8585/sso/auth/login?service=http://localhost:9090/sbframework"><i class="glyphicon glyphicon-log-in"></i>登录</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="dropdown user user-menu notifications-menu">
@@ -106,8 +106,8 @@
 								<li>
 									<ul id="user-dropdown-menu" class="menu">
 										<li menuId="userinfo"><a href="#"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
-										<li menuId="password"><a href="${ctx}/sso/password.action"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
-										<li menuId="logout"><a href="${ctx}/sso/logout.action"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+										<li menuId="password"><a href="${ctx}/sso/password"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
+										<li menuId="logout"><a href="${ctx}/sso/logout"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
 									</ul>
 								</li>
 							</ul>

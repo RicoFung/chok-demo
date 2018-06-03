@@ -135,9 +135,9 @@ $chok.view.query.callback.onLoadSuccess = function(){
 };
 $chok.view.query.callback.onContextMenuItem = function(row, $el){
 	if ($el.data("item")=="upd"){
-		location.href = "upd.action?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
+		location.href = "upd?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
 	} else if ($el.data("item")=="get"){
-		location.href = "get.action?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
+		location.href = "get?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
 	}
 };
 </script>

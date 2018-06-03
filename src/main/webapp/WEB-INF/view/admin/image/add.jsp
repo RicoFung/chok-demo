@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>新增</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">新增</li>
 		</ol>
 	</section>
@@ -49,12 +49,12 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 	//
 	$("#myFile").fileinput({
 	    allowedFileExtensions : ['jpg','png','gif'],
-	    uploadUrl: "add2.action", // server upload action
+	    uploadUrl: "add2", // server upload action
 	    uploadExtraData:function()
 	    {
 	    	return {model_id:$("#model_id").val(), sort:$("#sort").val()};
@@ -88,7 +88,7 @@ $(function(){
 	    	return;
 	    }
 	    alert("上传图片成功！");
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
    /*  同步请求
    }).on('filebatchpreupload', function(event, data, id, index) {
@@ -114,7 +114,7 @@ $(function(){
 	    $('#kv-success-2 ul').append(out);
 	    $('#kv-success-2').show();
 	    alert("上传图片成功！");
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}); */
 });
 
@@ -124,7 +124,7 @@ $(function(){
 $chok.view.fn.customize = function(){
 	var category_select = 
 		$("#category_id").DropDownSelect({
-			url:$ctx+"/dict/getCategorys.action",
+			url:$ctx+"/dict/getCategorys",
 			callback:{
 				afterload:function(){
 					model_select.reload();
@@ -133,7 +133,7 @@ $chok.view.fn.customize = function(){
 		});
 	var model_select = 
 		$("#model_id").DropDownSelect({
-			url:$ctx+"/dict/getModels.action",
+			url:$ctx+"/dict/getModels",
 			cascadeid:"category_id",
 			fk:"category_id"
 		});

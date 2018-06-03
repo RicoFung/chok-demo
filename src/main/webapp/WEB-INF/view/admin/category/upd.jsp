@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>修改</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">修改</li>
 		</ol>
 	</section>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form class="dataForm" id="dataForm" role="form" action="upd2.action" method="post">
+				<form class="dataForm" id="dataForm" role="form" action="upd2" method="post">
 					<div class="form-group"><label class="control-label" for="name">名称：</label><input type="text" class="form-control input-sm" id="name" name="m['name']" value="${po.m.name}" validate validate-rule-required/></div>
 					<div class="form-group"><label class="control-label" for="sort">排序：</label><input type="text" class="form-control input-sm" id="sort" name="m['sort']" value="${po.m.sort}" validate validate-rule-inputType="integer"/></div>
 					<input type="hidden" name="m['id']" value="${po.m.id}">
@@ -41,7 +41,7 @@
 /**********************************************************/
 $chok.form.callback = function(){
 	if($chok.result.type == 1){
- 		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+ 		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	}
 };
 /**********************************************************/
@@ -51,7 +51,7 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 });
 </script>

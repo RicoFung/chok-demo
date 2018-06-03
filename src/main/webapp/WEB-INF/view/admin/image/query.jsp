@@ -115,7 +115,7 @@ $chok.view.query.config.tableColumns =
     {title:'ID', field:'m.id', align:'center', valign:'middle', sortable:true},
     {title:'图片', field:'m.name', align:'center', valign:'middle', sortable:true, width:100,
         formatter:function(value,row,index){
-        	var _href = "get.action?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
+        	var _href = "get?id="+row.m.id+"&"+$chok.view.query.fn.getUrlParams();
         	var _src = "${imagePath}"+row.m.name;
             return "<a href=\""+_href+"\">"+"<img src=\""+_src+"\" alt=\"图片\" style=\"width:100px;height:100px\"/><br/><div style=\"width:100%;margin:0 auto;\">"+row.m.name+"</div></a>";  
         } 
@@ -149,7 +149,7 @@ $chok.view.fn.customize = function(){
 	/* 级联<Select> */
 	var category_select = 
 		$("#category_id").DropDownSelect({
-			url:$ctx+"/dict/getCategorys.action",
+			url:$ctx+"/dict/getCategorys",
 			callback:{
 				afterload:function(){
 					model_select.reload();
@@ -158,7 +158,7 @@ $chok.view.fn.customize = function(){
 		});
 	var model_select = 
 		$("#model_id").DropDownSelect({
-			url:$ctx+"/dict/getModels.action",
+			url:$ctx+"/dict/getModels",
 			cascadeid:"category_id",
 			fk:"category_id"
 		});
@@ -166,13 +166,13 @@ $chok.view.fn.customize = function(){
 	var category_select = $("#category_id").ListSelectField({
 		id: "category_select",
 		title: "选择分类",
-		url: $ctx+"/dict/getCategoryPage.action"
+		url: $ctx+"/dict/getCategoryPage"
 	});
 	
 	var model_select = $("#model_id").ListSelectField({
 		id: "model_select",
 		title: "选择模型",
-		url: $ctx+"/dict/getModelPage.action",
+		url: $ctx+"/dict/getModelPage",
 		queryParams: function(p){
 			p.category_ids = category_select.getSelections("id");
 			return p;

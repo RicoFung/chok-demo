@@ -23,3 +23,14 @@
 <script type="text/javascript" src="${statics}/res/chok/js/chok.form.js"></script>
 <script type="text/javascript" src="${statics}/res/chok/js/chok.view.js"></script>
 <script type="text/javascript" src="${statics}/res/chok/js/chok.nav.js"></script>
+<script type="text/javascript">
+var token = $("meta[name='_csrf']").attr("content");  
+var header = $("meta[name='_csrf_header']").attr("content");  
+$.ajaxSetup({  
+    beforeSend: function (xhr) {  
+        if(header && token ){  
+            xhr.setRequestHeader(header, token);  
+        }  
+    }}  
+); 
+</script>

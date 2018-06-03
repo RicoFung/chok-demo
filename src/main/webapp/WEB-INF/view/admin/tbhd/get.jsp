@@ -6,7 +6,7 @@
 		<h1>${param.menuName}<small>明细</small></h1>
 		<ol class="breadcrumb">
 			<li><a href="${ctx}/index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
-			<li><a href="query.action?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
+			<li><a href="query?menuId=${param.menuId}&menuName=${param.menuName}">${param.menuName}</a></li>
 			<li class="active">明细</li>
 		</ol>
 	</section>
@@ -72,7 +72,7 @@ $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
 	// 返回列表页
 	$("#back").click(function(){
-		location.href = "query.action?"+$chok.view.fn.getUrlParams("${queryParams}");
+		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
 	});
 });
 //
@@ -127,7 +127,7 @@ function ajaxRequest(params){
     //比如使用$.ajax获得请求某个url获得数据
     $.ajax({
         type : 'post',
-        url : '${ctx}/admin/tbdt/query2.action',
+        url : '${ctx}/admin/tbdt/query2',
         data : params.data,
         success : function(result){
         		$.LoadingOverlay("hide");
