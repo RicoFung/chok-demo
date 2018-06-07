@@ -22,6 +22,14 @@
 		<!-- chok -->
 		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
+		<!-- spring-boot-security 
+		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>
+		-->
+		<!-- spring-boot druid -->
+		<dependency><groupId>com.alibaba</groupId><artifactId>druid-spring-boot-starter</artifactId></dependency>
+		<!-- spring-boot atomikos 分布式事务 -->
+		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-jta-atomikos</artifactId></dependency>
+	    <dependency><groupId>com.atomikos</groupId><artifactId>transactions-osgi</artifactId></dependency>
 		<!-- db driver myql-->
 		<dependency><groupId>mysql</groupId><artifactId>mysql-connector-java</artifactId></dependency>
 	</dependencies>

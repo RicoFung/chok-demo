@@ -5,14 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import chok.util.PropertiesUtil;
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer// extends WebMvcConfigurationSupport// extends WebMvcConfigurerAdapter
+public class WebMvcConfig implements WebMvcConfigurer
 {
 	/**
 	 * 配置默认页
@@ -21,7 +19,6 @@ public class WebMvcConfig implements WebMvcConfigurer// extends WebMvcConfigurat
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
 		registry.addViewController("/").setViewName("forward:/index.jsp"); // 设置默认首页(必须加入“forward:”, 否则会访问spring.mvc.view.prefix所指定的目录)
-//		super.addViewControllers(registry);
 	}
 	
 	/**
@@ -37,7 +34,6 @@ public class WebMvcConfig implements WebMvcConfigurer// extends WebMvcConfigurat
         registry
         .addResourceHandler(PropertiesUtil.getValue("config/", "static.path"))
         .addResourceLocations("file:"+PropertiesUtil.getValue("config/", "static.doBase"));
-//        super.addResourceHandlers(registry);
     }
 
     /**
