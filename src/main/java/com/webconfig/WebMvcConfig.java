@@ -1,5 +1,6 @@
 package com.webconfig;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -7,11 +8,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import chok.util.PropertiesUtil;
-
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer
 {
+	@Value("${static.path}")
+	private String STATIC_PATH;
+	@Value("${static.doBase}")
+	private String STATIC_DOBASE;
+	
 	/**
 	 * 配置默认页
 	 */
@@ -32,8 +36,8 @@ public class WebMvcConfig implements WebMvcConfigurer
         * 用外部的tomcat也有效;所以用到外部的tomcat时不需在tomcat/config下的相应文件配置虚拟路径了,阿里云linux也没问题)
         */
         registry
-        .addResourceHandler(PropertiesUtil.getValue("config/", "static.path"))
-        .addResourceLocations("file:"+PropertiesUtil.getValue("config/", "static.doBase"));
+        .addResourceHandler(STATIC_PATH)
+        .addResourceLocations("file:"+STATIC_DOBASE);
     }
 
     /**
