@@ -3,6 +3,8 @@ package com.admin.action;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import chok.util.http.HttpUtil;
 @RequestMapping("/admin/home")
 public class HomeAction extends BaseController<Object>
 {
+	private static Logger log = LoggerFactory.getLogger(HomeAction.class);
+	
 	@RequestMapping("/query")
 	public String query() 
 	{
