@@ -27,7 +27,7 @@ public class ModelAction extends BaseController<Model>
 	{
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/model/add.jsp";
+		return "jsp/admin/model/add";
 	}
 	@RequestMapping("/add2")
 	public void add2(Model po) 
@@ -64,7 +64,7 @@ public class ModelAction extends BaseController<Model>
 		put("po", modelService.get(req.getLong("id")));
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
-		return "/admin/model/upd.jsp";
+		return "jsp/admin/model/upd";
 	}
 	@RequestMapping("/upd2")
 	public void upd2(Model po) 
@@ -87,7 +87,7 @@ public class ModelAction extends BaseController<Model>
 		put("po", modelService.get(req.getLong("id")));
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
-		return "/admin/model/get.jsp";
+		return "jsp/admin/model/get";
 	}
 
 	@RequestMapping("/query")
@@ -95,7 +95,7 @@ public class ModelAction extends BaseController<Model>
 	{
 		put("categorys", Dict.getCategorys(null));
 		put("queryParams", req.getParameterValueMap(false, true));
-		return "/admin/model/query.jsp";
+		return "jsp/admin/model/query";
 	}
 	
 	@RequestMapping("/query2")

@@ -25,7 +25,7 @@ public class TbDtAction extends BaseController<TbDt>
 	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbdt/add.jsp";
+		return "jsp/admin/tbdt/add";
 	}
 	@RequestMapping("/add2")
 	public void add2(TbDt po) 
@@ -64,7 +64,7 @@ public class TbDtAction extends BaseController<TbDt>
 	{
 		put("po", service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbdt/upd.jsp";
+		return "jsp/admin/tbdt/upd";
 	}
 	@RequestMapping("/upd2")
 	public void upd2(TbDt po) 
@@ -86,14 +86,14 @@ public class TbDtAction extends BaseController<TbDt>
 	{
 		put("po",service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbdt/get.jsp";
+		return "jsp/admin/tbdt/get";
 	}
 
 	@RequestMapping("/query")
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbdt/query.jsp";
+		return "jsp/admin/tbdt/query";
 	}
 	
 	@RequestMapping("/query2")

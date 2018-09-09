@@ -28,7 +28,7 @@ public class CategoryAction extends BaseController<Category>
 	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/add.jsp";
+		return "jsp/admin/category/add";
 	}
 	@RequestMapping("/add2")
 	public void add2(Category po) 
@@ -49,7 +49,7 @@ public class CategoryAction extends BaseController<Category>
 	public String imp() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/imp.jsp";
+		return "jsp/admin/category/imp";
 	}
 	@RequestMapping("/imp2")
 	public void imp2(@RequestParam("myFile") CommonsMultipartFile files[])
@@ -90,7 +90,7 @@ public class CategoryAction extends BaseController<Category>
 	{
 		put("po", service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/upd.jsp";
+		return "jsp/admin/category/upd";
 	}
 	@RequestMapping("/upd2")
 	public void upd2(Category po) 
@@ -112,14 +112,15 @@ public class CategoryAction extends BaseController<Category>
 	{
 		put("po",service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/get.jsp";
+		return "jsp/admin/category/get";
 	}
 
 	@RequestMapping("/query")
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/category/query.jsp";
+		put("jspaction", req.getServletPath());
+		return "jsp/admin/category/query";
 	}
 	
 	@RequestMapping("/query2")

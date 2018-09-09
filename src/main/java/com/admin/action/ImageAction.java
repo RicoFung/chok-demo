@@ -30,7 +30,7 @@ public class ImageAction extends BaseController<Image>
 	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/image/add.jsp";
+		return "jsp/admin/image/add";
 	}
 	@RequestMapping("/add2")
 	public void add2(@RequestParam("myFile") CommonsMultipartFile files[])
@@ -88,14 +88,14 @@ public class ImageAction extends BaseController<Image>
 		put("po", po);
 		put("modelName", modelService.get(po.getLong("model_id")).get("name"));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/image/get.jsp";
+		return "jsp/admin/image/get";
 	}
 
 	@RequestMapping("/query")
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/image/query.jsp";
+		return "jsp/admin/image/query";
 	}
 	
 	@RequestMapping("/query2")

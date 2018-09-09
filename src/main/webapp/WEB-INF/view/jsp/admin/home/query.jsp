@@ -9,6 +9,8 @@
 		</ol>
 	</section>
 	<section class="content">
+		<div>${i18nHello1}!</div>
+		<div>${i18nHello2}!</div>
 	</section>
 </div>
 <%@ include file="/include/view-end.jsp"%>

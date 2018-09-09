@@ -29,7 +29,7 @@ public class TbHdAction extends BaseController<TbHd>
 	public String add() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbhd/add.jsp";
+		return "jsp/admin/tbhd/add";
 	}
 	@RequestMapping("/add2")
 	public void add2(TbHd po) 
@@ -68,7 +68,7 @@ public class TbHdAction extends BaseController<TbHd>
 	{
 		put("po", service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbhd/upd.jsp";
+		return "jsp/admin/tbhd/upd";
 	}
 	@RequestMapping("/upd2")
 	public void upd2(TbHd po) 
@@ -90,14 +90,14 @@ public class TbHdAction extends BaseController<TbHd>
 	{
 		put("po",service.get(req.getLong("id")));
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbhd/get.jsp";
+		return "jsp/admin/tbhd/get";
 	}
 
 	@RequestMapping("/query")
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "/admin/tbhd/query.jsp";
+		return "jsp/admin/tbhd/query";
 	}
 	
 	@RequestMapping("/query2")
