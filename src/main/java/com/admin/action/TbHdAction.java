@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.admin.entity.TbHd;
-import com.admin.service.TbDtService;
 import com.admin.service.TbHdService;
 
 import chok.devwork.BaseController;
@@ -22,8 +21,6 @@ public class TbHdAction extends BaseController<TbHd>
 {
 	@Autowired
 	private TbHdService service;
-	@Autowired
-	private TbDtService tbDtService;
 	
 	@RequestMapping("/add")
 	public String add() 
@@ -97,7 +94,10 @@ public class TbHdAction extends BaseController<TbHd>
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		return "jsp/admin/tbhd/query";
+		// 跳转到thymeleaf
+		return "html/admin/tbhd/query";
+		// 跳转到jsp
+//		return "jsp/admin/tbhd/query";
 	}
 	
 	@RequestMapping("/query2")
