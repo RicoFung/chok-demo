@@ -94,7 +94,7 @@ public class TbHdAction extends BaseController<TbHd>
 	public String query() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
-		put("tips", "welcome thymeleaf");
+		put("tips", "Welcome thymeleaf !");
 		// 跳转到thymeleaf
 		return "html/admin/tbhd/query";
 		// 跳转到jsp
