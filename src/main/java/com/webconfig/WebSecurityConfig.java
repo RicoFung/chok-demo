@@ -15,17 +15,25 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
-	////////////////////////////////////////////////////////////
-	// HttpBasic 认证
-	////////////////////////////////////////////////////////////
 	@Autowired
 	private Environment env;
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
 		http.csrf().disable();
+        http
+        .authorizeRequests()
+//            .antMatchers("/home","/logout").permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+        .formLogin()
+            .loginPage("/login")
+            .permitAll()
+            .and()
+        .logout()		//手动logout：http://{domain}/login?logout
+            .permitAll();
 	}
 
 	@Bean
@@ -47,6 +55,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	{
 		return new BCryptPasswordEncoder();
 	}
+	
+	////////////////////////////////////////////////////////////
+	// HttpBasic 认证
+	////////////////////////////////////////////////////////////
+//	@Autowired
+//	private Environment env;
+//
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception
+//	{
+//		http.authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
+//		http.csrf().disable();
+//	}
+//
+//	@Bean
+//	public UserDetailsService userDetailsService()
+//	{
+//		// Get the user credentials from the console (or any other source):
+//		String username = env.getProperty("spring.security.user.name");
+//		String password = env.getProperty("spring.security.user.password");
+//
+//		// Set the inMemoryAuthentication object with the given credentials:
+//		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//		String encodedPassword = passwordEncoder().encode(password);
+//		manager.createUser(User.withUsername(username).password(encodedPassword).roles("ADMIN").build());
+//		return manager;
+//	}
+//
+//	@Bean
+//	public PasswordEncoder passwordEncoder()
+//	{
+//		return new BCryptPasswordEncoder();
+//	}
 	
 	////////////////////////////////////////////////////////////
 	//	 自定义认证，开发中...

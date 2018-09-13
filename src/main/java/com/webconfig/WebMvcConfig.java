@@ -34,8 +34,12 @@ public class WebMvcConfig implements WebMvcConfigurer
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
-		registry.addViewController("/").setViewName("forward:/index.jsp"); // 设置默认首页(必须加入“forward:”,
-																			// 否则会访问spring.mvc.view.prefix所指定的目录)
+		// 设置默认首页(必须加入“forward:”, 否则会访问spring.mvc.view.prefix所指定的目录)
+		registry.addViewController("/").setViewName("forward:/index.jsp"); 
+//        registry.addViewController("/").setViewName("html/home");
+//        registry.addViewController("/home").setViewName("html/home");
+        registry.addViewController("/login").setViewName("html/login");
+        registry.addViewController("/admin/logout").setViewName("redirect:/login?logout");
 	}
 
 	/**

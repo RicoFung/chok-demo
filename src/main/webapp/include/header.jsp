@@ -23,7 +23,7 @@
 							<ul id="user-dropdown-menu" class="menu">
 								<li menuId="userinfo"><a href="#"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
 								<li menuId="password"><a href="#"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
-								<li menuId="logout"><a href="#"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+								<li menuId="logout"><a href="${ctx}/admin/logout"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
 							</ul>
 						</li>
 					</ul>
