@@ -22,8 +22,6 @@
 		<!-- chok -->
 		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
-		<!-- spring-boot thymeleaf -->
-		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-thymeleaf</artifactId></dependency>
 		<!-- spring-boot-security 
 		-->
 		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>
