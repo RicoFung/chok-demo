@@ -21,9 +21,9 @@
 					<ul class="dropdown-menu" style="height: 125px;">
 						<li>
 							<ul id="user-dropdown-menu" class="menu">
-								<li menuId="userinfo"><a href="#"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
-								<li menuId="password"><a href="#"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
-								<li menuId="logout"><a href="${ctx}/admin/logout"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
+								<li menuId="userinfo"><a href="javascript:void(0);return false;"><i class="fa fa-user text-aqua"></i> <span>个人资料</span></a></li>
+								<li menuId="password"><a href="javascript:void(0);return false;"><i class="glyphicon glyphicon-lock text-aqua"></i><span>修改密码</span></a></li>
+								<li menuId="logout"><a href="javascript:void(0);return false;"><i class="glyphicon glyphicon-log-out text-red"></i><span>登出</span></a></li>
 							</ul>
 						</li>
 					</ul>
@@ -31,6 +31,10 @@
 				<!-- 右侧栏切换按钮 -->
 				<li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
 			</ul>
+			<!-- oauth登出 -->
+	    	<form id="oauthLogoutForm" hidden="true" action="${ctx}/logout" method="post">
+	    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	    	</form>
 		</div>
 	</nav>
 </header>
