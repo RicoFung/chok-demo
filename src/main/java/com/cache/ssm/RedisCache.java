@@ -11,8 +11,6 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
-import redis.clients.jedis.exceptions.JedisConnectionException;
-
 /**
  * 
  * @描述: 使用第三方内存数据库Redis作为二级缓存
@@ -49,7 +47,7 @@ public class RedisCache implements Cache
             connection.flushDb();
             connection.flushAll();
         }
-        catch (JedisConnectionException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -79,7 +77,7 @@ public class RedisCache implements Cache
             RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
             result = serializer.deserialize(connection.get(serializer.serialize(key)));
         }
-        catch (JedisConnectionException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -109,7 +107,7 @@ public class RedisCache implements Cache
             connection = (JedisConnection) jedisConnectionFactory.getConnection();
             result = Integer.valueOf(connection.dbSize().toString());
         }
-        catch (JedisConnectionException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -133,7 +131,7 @@ public class RedisCache implements Cache
             RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
             connection.set(serializer.serialize(key), serializer.serialize(value));
         }
-        catch (JedisConnectionException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -157,7 +155,7 @@ public class RedisCache implements Cache
             RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer();
             result =connection.expire(serializer.serialize(key), 0);
         }
-        catch (JedisConnectionException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
