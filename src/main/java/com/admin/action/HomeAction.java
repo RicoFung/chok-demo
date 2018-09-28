@@ -31,6 +31,8 @@ public class HomeAction extends BaseController<Object>
 	@RequestMapping("/query")
 	public String query() 
 	{
+		Locale locale0 = Locale.getDefault();
+		put("i18nHello0", source.getMessage("hello", null, locale0));
 		Locale locale1 = new Locale("en", "GB");
 		put("i18nHello1", source.getMessage("hello", null, locale1));
 		Locale locale2 = new Locale("fr", "FR");

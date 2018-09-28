@@ -9,6 +9,7 @@
 		</ol>
 	</section>
 	<section class="content">
+		<div>${i18nHello0}!</div>
 		<div>${i18nHello1}!</div>
 		<div>${i18nHello2}!</div>
 	</section>
