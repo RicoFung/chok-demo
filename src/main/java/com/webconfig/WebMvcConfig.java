@@ -21,6 +21,10 @@ public class WebMvcConfig implements WebMvcConfigurer
 	private String	JSP_STATIC_PATH;
 	@Value("${jsp.static.doBase}")
 	private String	JSP_STATIC_DOBASE;
+	@Value("${img.path}")
+	private String	IMG_PATH;
+	@Value("${img.doBase}")
+	private String	IMG_DOBASE;
 	@Value("${spring.mvc.view.prefix}")
 	private String	SPRING_MVC_VIEW_PREFIX;
 	@Value("${spring.mvc.view.suffix}")
@@ -36,10 +40,6 @@ public class WebMvcConfig implements WebMvcConfigurer
 	{
 		// 设置默认首页(必须加入“forward:”, 否则会访问spring.mvc.view.prefix所指定的目录)
 		registry.addViewController("/").setViewName("forward:/index.jsp"); 
-//        registry.addViewController("/").setViewName("html/home");
-//        registry.addViewController("/home").setViewName("html/home");
-        registry.addViewController("/login").setViewName("html/login");
-        registry.addViewController("/admin/logout").setViewName("redirect:/login?logout");
 	}
 
 	/**
@@ -52,8 +52,9 @@ public class WebMvcConfig implements WebMvcConfigurer
 		 * 说明：增加虚拟路径(经过本人测试：在此处配置的虚拟路径，用springboot内置的tomcat时有效，
 		 * 用外部的tomcat也有效;所以用到外部的tomcat时不需在tomcat/config下的相应文件配置虚拟路径了,阿里云linux也没问题)
 		 */
-		registry.addResourceHandler(STATIC_PATH).addResourceLocations("file:" + STATIC_DOBASE);
+		registry.addResourceHandler(STATIC_PATH).addResourceLocations(STATIC_DOBASE);
 		registry.addResourceHandler(JSP_STATIC_PATH).addResourceLocations(JSP_STATIC_DOBASE);
+		registry.addResourceHandler(IMG_PATH).addResourceLocations(IMG_DOBASE);
 	}
 
 	/**
