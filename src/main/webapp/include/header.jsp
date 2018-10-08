@@ -15,7 +15,7 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu notifications-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="${statics}/res/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+						<img src="${staticexternal}/res/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
 						<span class="hidden-xs"> <%=account%> </span><span class=" fa fa-angle-down"></span>
 					</a>
 					<ul class="dropdown-menu" style="height: 125px;">
@@ -59,7 +59,7 @@
 					<c:otherwise>
 						<li class="dropdown user user-menu notifications-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="${statics}/res/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+								<img src="${staticexternal}/res/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
 								<span class="hidden-xs"> <%=account%></span><span class=" fa fa-angle-down"></span>
 							</a>
 							<ul class="dropdown-menu" style="height: 125px;">

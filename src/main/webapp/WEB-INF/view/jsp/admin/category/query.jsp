@@ -66,9 +66,9 @@
 </form>
 <%@ include file="/include/view-end.jsp"%>
 <!-- ======================================================================================================= -->
-<script type="text/javascript" src="${statics}/res/chok/js/chok.auth.js"></script>
-<script type="text/javascript" src="${statics}/res/chok/js/chok.view.query.js"></script>
-<script type="text/javascript" src="${jspstatics}${jspaction}.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.auth.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.view.query.js"></script>
+<script type="text/javascript" src="${staticinternal}${jspaction}.js"></script>
 <script type="text/javascript">
 var $param_menuId = "${param.menuId}";
 var $param_menuPermidId = "${param.menuPermitId}";

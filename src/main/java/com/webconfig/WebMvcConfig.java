@@ -13,18 +13,18 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer
 {
-	@Value("${static.path}")
-	private String	STATIC_PATH;
-	@Value("${static.doBase}")
-	private String	STATIC_DOBASE;
-	@Value("${jsp.static.path}")
-	private String	JSP_STATIC_PATH;
-	@Value("${jsp.static.doBase}")
-	private String	JSP_STATIC_DOBASE;
-	@Value("${img.path}")
-	private String	IMG_PATH;
-	@Value("${img.doBase}")
-	private String	IMG_DOBASE;
+	@Value("${static.path.external}")
+	private String	STATIC_PATH_EXTERNAL;
+	@Value("${static.doBase.external}")
+	private String	STATIC_DOBASE_EXTERNAL;
+	@Value("${static.path.internal}")
+	private String	STATIC_PATH_INTERNAL;
+	@Value("${static.doBase.internal}")
+	private String	STATIC_DOBASE_INTERNAL;
+	@Value("${img.path.internal}")
+	private String	IMG_PATH_INTERNAL;
+	@Value("${img.doBase.internal}")
+	private String	IMG_DOBASE_INTERNAL;
 	@Value("${spring.mvc.view.prefix}")
 	private String	SPRING_MVC_VIEW_PREFIX;
 	@Value("${spring.mvc.view.suffix}")
@@ -52,9 +52,9 @@ public class WebMvcConfig implements WebMvcConfigurer
 		 * 说明：增加虚拟路径(经过本人测试：在此处配置的虚拟路径，用springboot内置的tomcat时有效，
 		 * 用外部的tomcat也有效;所以用到外部的tomcat时不需在tomcat/config下的相应文件配置虚拟路径了,阿里云linux也没问题)
 		 */
-		registry.addResourceHandler(STATIC_PATH).addResourceLocations(STATIC_DOBASE);
-		registry.addResourceHandler(JSP_STATIC_PATH).addResourceLocations(JSP_STATIC_DOBASE);
-		registry.addResourceHandler(IMG_PATH).addResourceLocations(IMG_DOBASE);
+		registry.addResourceHandler(STATIC_PATH_EXTERNAL).addResourceLocations(STATIC_DOBASE_EXTERNAL);
+		registry.addResourceHandler(STATIC_PATH_INTERNAL).addResourceLocations(STATIC_DOBASE_INTERNAL);
+		registry.addResourceHandler(IMG_PATH_INTERNAL).addResourceLocations(IMG_DOBASE_INTERNAL);
 	}
 
 	/**

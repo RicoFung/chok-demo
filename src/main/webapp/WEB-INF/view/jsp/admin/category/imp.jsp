@@ -33,10 +33,10 @@
 </div>
 <%@ include file="/include/view-end.jsp"%>
 <!-- ======================================================================================================= -->
-<script type="text/javascript" src="${statics}/res/chok/js/chok.auth.js"></script>
-<link rel="stylesheet" href="${statics}/res/bs/plugin/fileinput/css/fileinput.min.css"/>
-<script type="text/javascript" src="${statics}/res/bs/plugin/fileinput/js/fileinput.min.js"></script>
-<script type="text/javascript" src="${statics}/res/chok/js/chok.view.add.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.auth.js"></script>
+<link rel="stylesheet" href="${staticexternal}/res/bs/plugin/fileinput/css/fileinput.min.css"/>
+<script type="text/javascript" src="${staticexternal}/res/bs/plugin/fileinput/js/fileinput.min.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.view.add.js"></script>
 <script type="text/javascript">
 $(function(){
 	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");

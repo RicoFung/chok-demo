@@ -5,8 +5,8 @@
 String ctx = request.getContextPath();
 String imagePath = PropertiesUtil.getValue("config/", "image.path");
 request.setAttribute("ctx", ctx);
-request.setAttribute("statics", ctx+"/static");
-request.setAttribute("jspstatics", ctx+"/jspstatic");
+request.setAttribute("staticexternal", ctx+"/staticexternal");
+request.setAttribute("staticinternal", ctx+"/staticinternal");
 request.setAttribute("imagePath", imagePath);
 %>
 <script type="text/javascript">

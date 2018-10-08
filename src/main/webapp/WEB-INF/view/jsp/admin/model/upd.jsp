@@ -42,8 +42,8 @@
 </div>
 <%@ include file="/include/view-end.jsp"%>
 <!-- ======================================================================================================= -->
-<script type="text/javascript" src="${statics}/res/chok/js/chok.auth.js"></script>
-<script type="text/javascript" src="${statics}/res/chok/js/chok.view.upd.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.auth.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.view.upd.js"></script>
 <script type="text/javascript">
 /**********************************************************/
 /* 保存后回调函数 */
