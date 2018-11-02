@@ -56,7 +56,7 @@ public class WebMvcConfig implements WebMvcConfigurer
 		registry.addResourceHandler(STATIC_PATH_INTERNAL).addResourceLocations(STATIC_DOBASE_INTERNAL);
 		registry.addResourceHandler(IMG_PATH_INTERNAL).addResourceLocations(IMG_DOBASE_INTERNAL);
 	}
-
+	
 	/**
 	 * 配置多文件上传
 	 * 

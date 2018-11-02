@@ -6,26 +6,44 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+
+import com.security.MyAccessDeniedHandler;
+import com.security.MyAuthenticationEntryPoint;
+import com.security.MyFilterSecurityInterceptor;
 
 @EnableWebSecurity
 @EnableOAuth2Sso
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 	////////////////////////////////////////////////////////////
-	// Oauth2 认证
+	// Oauth2 SSO 认证
 	////////////////////////////////////////////////////////////
 	@Autowired
 	private Environment env;
+	@Autowired
+	private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
+//	@Autowired
+//	private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+//	@Autowired
+//	private MyAccessDeniedHandler myAccessDeniedHandler;
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception
 	{
-		http.antMatcher("/**").authorizeRequests().anyRequest().authenticated()
+		http
+		.antMatcher("/**").authorizeRequests().anyRequest().authenticated()
 		.and()
 		.logout().logoutSuccessUrl(env.getProperty("chok.oauth2.server.logout-uri"))
-        .deleteCookies()
-        .clearAuthentication(true)
-        .invalidateHttpSession(true);
+		.deleteCookies()
+		.clearAuthentication(true)
+		.invalidateHttpSession(true)
+		.and()
+		.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+//		.exceptionHandling()
+//		.authenticationEntryPoint(myAuthenticationEntryPoint)
+//		.accessDeniedHandler(myAccessDeniedHandler)
+		;
 	}
 	
 	////////////////////////////////////////////////////////////
