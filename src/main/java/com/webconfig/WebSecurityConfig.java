@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import com.security.MyAccessDeniedHandler;
-import com.security.MyAuthenticationEntryPoint;
+//import com.security.MyAuthenticationEntryPoint;
 import com.security.MyFilterSecurityInterceptor;
 
 @EnableWebSecurity
@@ -25,8 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 //	@Autowired
 //	private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
-//	@Autowired
-//	private MyAccessDeniedHandler myAccessDeniedHandler;
+	@Autowired
+	private MyAccessDeniedHandler myAccessDeniedHandler;
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception
@@ -39,10 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 		.clearAuthentication(true)
 		.invalidateHttpSession(true)
 		.and()
-		.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
-//		.exceptionHandling()
-//		.authenticationEntryPoint(myAuthenticationEntryPoint)
-//		.accessDeniedHandler(myAccessDeniedHandler)
+		.addFilterAfter(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+		.exceptionHandling()
+//		.authenticationEntryPoint(myAuthenticationEntryPoint) // 401，不需要，@EnableOAuth2Sso会跳转至oauth2服务器端认证
+		.accessDeniedHandler(myAccessDeniedHandler) // 403
 		;
 	}
 	
