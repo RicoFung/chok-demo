@@ -3,7 +3,7 @@
   
 <mapper namespace="com.admin.entity.Model">
 	<!-- 开启基于redis的二级缓存 -->
-    <cache type="com.cache.sbm.RedisCache"/>
+    <cache type="chok.util.mybatis.RedisCache"/>
     
     <!-- 自动生成id策略 -->
     <insert id="add" parameterType="com.admin.entity.Model" useGeneratedKeys="true" keyProperty="id">  

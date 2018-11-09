@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 // 默认
 //@SpringBootApplication
 // 需要客制化security时用
-@ComponentScan(basePackages={"com","chok.security"})
-// exclude表示自动配置时不包括Multipart配置（使用CommonsMultipartFile实现多文件上传）
+@ComponentScan(basePackages={"com","chok.common","chok.security"})
+// exclude表示自动配置时排除特定配置（使用CommonsMultipartFile实现多文件上传）
 @EnableAutoConfiguration(exclude = { MultipartAutoConfiguration.class })
 public class Application extends SpringBootServletInitializer
 {
