@@ -71,18 +71,27 @@ $chok.view.query.init.toolbar = function(){
 		$.confirm({
 		    title: '提示',
 		    content: "确认删除？",
-		    type: 'red',
+		    type: 'orange',
 		    typeAnimated: true,
 		    buttons: {
 		        ok: function() {
-			    		$.post("del",{id:$chok.view.query.fn.getIdSelections()},function(result){
-			    	        $chok.view.query.callback.delRows(result); // 删除行回调
-			    	        if(!result.success) {
-				    	        	$.alert({title: "提示", type:"green", content: result.msg});
-				    	        	return;
-			    	        }
+		            $.ajax({
+		                type: 'post',
+		                url: 'del',
+		                dataType: 'JSON',
+		                data: {id:$chok.view.query.fn.getIdSelections()},
+		                success: function(result){
+	                		$.LoadingOverlay("hide");
+	        	        	if(result.success==false){
+	        	        		$.alert({title: "提示", type: "red", content: result.msg});
+	        	        		return;
+	        	        	}
 			    	        $("#tb_list").bootstrapTable('refresh'); // 刷新table
-			    		});
+		                },
+		                error: function (jqXHR, textStatus, errorThrown) {
+		            		$.alert({title: "提示", type: "red", content: jqXHR.responseText});
+		                }
+		            });
 		        },
 		        close: function () {
 		        }
