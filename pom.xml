@@ -23,6 +23,13 @@
 		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-security</artifactId></dependency>
+		<!-- spring-cloud -->
+		<!-- 若作为eureka-client端，且不用chok-security（已引入）时，显式引入
+		<dependency><groupId>commons-configuration</groupId><artifactId>commons-configuration</artifactId></dependency>
+		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-actuator</artifactId></dependency>
+		<dependency><groupId>org.springframework.cloud</groupId><artifactId>spring-cloud-starter-config</artifactId></dependency>
+		<dependency><groupId>org.springframework.cloud</groupId><artifactId>spring-cloud-starter-netflix-eureka-client</artifactId></dependency>
+		 -->
 		<!-- spring-boot-security -->
 		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>
 		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-properties-migrator</artifactId></dependency>
@@ -43,4 +50,5 @@
 	<build>
 		<finalName>chok-demo</finalName>
 	</build>
+
 </project>

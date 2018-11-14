@@ -9,15 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import chok.security.MyAccessDeniedHandler;
 
-@EnableWebSecurity
 @EnableOAuth2Sso
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 	////////////////////////////////////////////////////////////
 	// Oauth2 SSO 认证
 	////////////////////////////////////////////////////////////
 	@Autowired
-	private Environment					env;
+	private Environment	env;
 	@Autowired
 	private MyAccessDeniedHandler myAccessDeniedHandler;
 	
@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	 {
 		 http
 		 // 所有请求必须登录认证
-		 .authorizeRequests().antMatchers("/error").permitAll().anyRequest().authenticated()
+		 .authorizeRequests().anyRequest().authenticated()
 		 // 注销
 		 .and()
 		 .logout().logoutSuccessUrl(env.getProperty("chok.oauth2.server.logout-uri"))
