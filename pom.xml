@@ -19,10 +19,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- chok -->
-		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
-		<dependency><groupId>com.chok</groupId><artifactId>chok-security</artifactId></dependency>
 		<!-- spring-cloud -->
 		<!-- 若作为eureka-client端，且不用chok-security（已引入）时，显式引入
 		<dependency><groupId>commons-configuration</groupId><artifactId>commons-configuration</artifactId></dependency>
@@ -44,6 +40,10 @@
 	    <dependency><groupId>com.atomikos</groupId><artifactId>transactions-osgi</artifactId></dependency>
 		<!-- db driver myql-->
 		<dependency><groupId>mysql</groupId><artifactId>mysql-connector-java</artifactId></dependency>
+		<!-- chok -->
+		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-security</artifactId></dependency>
 	</dependencies>
 
 	<!-- maven 打包插件 -->
