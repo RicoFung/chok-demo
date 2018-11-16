@@ -1,32 +1,66 @@
 package com.admin.action;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
+
+import com.alibaba.fastjson.JSONObject;
 
 import chok.devwork.BaseController;
 import chok.util.PropertiesUtil;
-import chok.util.http.HttpAction;
-import chok.util.http.HttpResult;
-import chok.util.http.HttpUtil;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/admin/home")
 public class HomeAction extends BaseController<Object>
 {
-	private static Logger log = LoggerFactory.getLogger(HomeAction.class);
+	private final Log log = LogFactory.getLog(getClass());
+	// chok.security.menu.service-id
+	private static String MENU_SERVICE_ID = "eureka-client";
+	static
+	{
+		String customMenuServiceId = PropertiesUtil.getValue("config/", "chok.security.menu.service-id");
+		if (null != customMenuServiceId)
+		{
+			MENU_SERVICE_ID = customMenuServiceId.trim();
+		}
+	}
+	// chok.security.menu.protocol
+	private static String MENU_PROTOCOL = "http";
+	static
+	{
+		String customMenuProtocol = PropertiesUtil.getValue("config/", "chok.security.menu.protocol");
+		if (null != customMenuProtocol)
+		{
+			MENU_PROTOCOL = customMenuProtocol.trim();
+		}
+	}
+	// chok.security.menu.uri
+	private static String MENU_URI = "/menu";
+	static
+	{
+		String customMenuUri = PropertiesUtil.getValue("config/", "chok.security.menu.uri");
+		if (null != customMenuUri)
+		{
+			MENU_URI = customMenuUri.trim();
+		}
+	}
 	
 	@Autowired
 	MessageSource source;
+	@Autowired
+	LoadBalancerClient	loadBalancerClient;
+	@Autowired
+	RestTemplate		restTemplate;
 	
 	@RequestMapping("/query")
 	public String query() 
@@ -40,15 +74,15 @@ public class HomeAction extends BaseController<Object>
 		return "jsp/admin/home/query";
 	}
 	
-	@RequestMapping("/searchMenu")
-	public void searchMenu() 
+	@RequestMapping("/menu")
+	public void menu() 
 	{
-		Map<String, String> param = new HashMap<String, String>();
-		param.put("tc_user_id", req.getString("tc_user_id"));
-		param.put("tc_app_id", req.getString("tc_app_id"));
-		param.put("tc_name", req.getString("tc_name"));
-		HttpResult<String> r = HttpUtil.create(new HttpAction(PropertiesUtil.getValue("nav.menu.search.api"), param), String.class, "GET");
-		if(log.isInfoEnabled()) log.info("搜索后 menuJson：" + r.getData());
-		printJson(r.getData());
+		// 通过微服务获取App授权
+		ServiceInstance serviceInstance = loadBalancerClient.choose(MENU_SERVICE_ID);
+		String url = MENU_PROTOCOL + "://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + MENU_URI;
+		log.info("Rest url => " + url);
+		JSONObject jo = restTemplate.postForObject(url, req.getParameterValueMap(false, true), JSONObject.class);
+		log.info("Rest result <= " + jo);
+		printJson(jo);
 	}
 }

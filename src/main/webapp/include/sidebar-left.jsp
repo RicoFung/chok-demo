@@ -3,7 +3,7 @@
 <aside class="main-sidebar">
 	<section class="sidebar">
 		<!-- 菜单搜索form -->
-		<form id="navSearchForm" action="${ctx}/admin/home/searchMenu" method="get" class="sidebar-form">
+		<form id="navSearchForm" action="" method="post" class="sidebar-form">
 			<div class="input-group">
 				<input type="text" id="menuName" name="q" class="form-control" placeholder="Search..."/>
 				<span class="input-group-btn">

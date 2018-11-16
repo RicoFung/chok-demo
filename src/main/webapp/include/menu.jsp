@@ -8,18 +8,19 @@ String account = "DEV";
 %>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
-var $g_menuJson = [
-	{"tc_code":"Category management","tc_order":"2-1","tc_app_id":3,"tc_permit_id":27,"pid":0,"id":1,"tc_name":"分类管理","tc_url":"/admin/category/query"},
-	{"tc_code":"Model management","tc_order":"2-2","tc_app_id":3,"tc_permit_id":2,"pid":0,"id":2,"tc_name":"模型管理","tc_url":"/admin/model/query"},
-	{"tc_code":"Image management","tc_order":"2-3","tc_app_id":3,"tc_permit_id":18,"pid":0,"id":14,"tc_name":"图片管理","tc_url":"/admin/image/query"},
-	{"tc_code":"Test","tc_order":"2-4","tc_app_id":3,"tc_permit_id":0,"pid":0,"id":100,"tc_name":"测试","tc_url":"/admin/tbhd/query"}
-	];
+var $g_menuJson = 
+	[
+	{"tcCode":"Category management","tcOrder":"2-1","tcAppId":3,"tcAuthorityId":27,"pid":0,"id":1,"tcName":"分类管理","tcUrl":"/admin/category/query"},
+	{"tcCode":"Model management","tcOrder":"2-2","tcAppId":3,"tcAuthorityId":2,"pid":0,"id":2,"tcName":"模型管理","tcUrl":"/admin/model/query"},
+	{"tcCode":"Image management","tcOrder":"2-3","tcAppId":3,"tcAuthorityId":18,"pid":0,"id":14,"tcName":"图片管理","tcUrl":"/admin/image/query"},
+	{"tcCode":"Test","tcOrder":"2-4","tcAppId":3,"tcAuthorityId":0,"pid":0,"id":100,"tcName":"测试","tcUrl":"/admin/tbhd/query"}
+	];  
 var $g_btnJson = null;
 /************************************************************************/
 $(function(){
-	// nav
-	$chok.nav.init($g_menuJson);
-	// 导航菜单查询
+	// 菜单初始化
+	$chok.menu.init($g_menuJson);
+	// 菜单查询
 	$("#navSearchForm").submit(function(event) {
 		event.preventDefault();
 	});
@@ -27,30 +28,57 @@ $(function(){
 </script>
  --%>
 <%-- OAUTH2 SSO --%>
+<%@ page import="chok.util.PropertiesUtil" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%
-String appId = "3";
-String userId = "3";
+String appcode = PropertiesUtil.getValue("config/", "spring.application.name");
 String account = SecurityContextHolder.getContext().getAuthentication().getName();
+request.setAttribute("appcode", appcode);
+request.setAttribute("account", account);
 %>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
-var $g_menuJson = [
-	{"tc_code":"Category management","tc_order":"2-1","tc_app_id":3,"tc_permit_id":27,"pid":0,"id":1,"tc_name":"分类管理","tc_url":"/admin/category/query"},
-	{"tc_code":"Model management","tc_order":"2-2","tc_app_id":3,"tc_permit_id":2,"pid":0,"id":2,"tc_name":"模型管理","tc_url":"/admin/model/query"},
-	{"tc_code":"Image management","tc_order":"2-3","tc_app_id":3,"tc_permit_id":18,"pid":0,"id":14,"tc_name":"图片管理","tc_url":"/admin/image/query"},
-	{"tc_code":"Test","tc_order":"2-4","tc_app_id":3,"tc_permit_id":0,"pid":0,"id":100,"tc_name":"测试","tc_url":"/admin/tbhd/query"}
-	];
+var $g_menuJson = [];
 var $g_btnJson = null;
 /************************************************************************/
 $(function(){
-	// nav
-	$chok.nav.init($g_menuJson);
-	// 导航菜单查询
+	var params = {appcode:"${appcode}", usercode:"${account}"};
+	// 菜单初始化
+	if ($g_menuJson.length < 1) {
+		callMenuApi(params);
+	} else {
+		$chok.menu.init($g_menuJson);
+	}
+	// 菜单查询
 	$("#navSearchForm").submit(function(event) {
 		event.preventDefault();
+		var thisParams = $.extend(params, {menuname:$("#menuName").val()});
+		callMenuApi(thisParams);
 	});
 });
+/**
+ * 调用菜单api
+ */
+function callMenuApi(params) {
+    $.ajax({
+        type: "post",
+        async: false,
+        url: $ctx+"/admin/home/menu",
+        data: params,
+        dataType: 'JSON',
+        success: function (result) {
+        	if(result.success==false){
+        		$.alert({title: "提示", type: "red", content: result.msg});
+        		return;
+        	}
+        	$g_menuJson = result.data.menus;
+        	$chok.menu.init($g_menuJson);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+    		$.alert({title: "提示", type: "red", content: jqXHR.status + "<br/>" + jqXHR.responseText});
+        }
+    });
+}
 </script>
 <%-- CAS
 <%@ page import="chok.cas.client.CasLoginUser" %>

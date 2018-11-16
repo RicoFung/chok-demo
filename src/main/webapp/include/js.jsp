@@ -22,7 +22,7 @@
 <script type="text/javascript" src="${staticexternal}/res/chok/js/chok.validator.js"></script>
 <script type="text/javascript" src="${staticexternal}/res/chok/js/chok.form.js"></script>
 <script type="text/javascript" src="${staticexternal}/res/chok/js/chok.view.js"></script>
-<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.nav.js"></script>
+<script type="text/javascript" src="${staticexternal}/res/chok/js/chok.menu.js"></script>
 <script type="text/javascript">
 var token = $("meta[name='_csrf']").attr("content");  
 var header = $("meta[name='_csrf_header']").attr("content");  
