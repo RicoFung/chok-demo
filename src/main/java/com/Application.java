@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
-@EnableDiscoveryClient
-// 默认
+//默认（只能扫描project内的bean）
 //@SpringBootApplication
-// 需要客制化security时用
+//自定义（可扫描project外的bean）
 @ComponentScan(basePackages={"com","chok.common","chok.security"})
 // exclude表示自动配置时排除特定配置（使用CommonsMultipartFile实现多文件上传）
 @EnableAutoConfiguration(exclude = { MultipartAutoConfiguration.class })
+@EnableDiscoveryClient
 public class Application extends SpringBootServletInitializer
 {
 	public static void main(String[] args)
