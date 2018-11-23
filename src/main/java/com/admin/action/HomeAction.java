@@ -2,8 +2,8 @@ package com.admin.action;
 
 import java.util.Locale;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -23,7 +23,7 @@ import chok.util.PropertiesUtil;
 @RequestMapping("/admin/home")
 public class HomeAction extends BaseController<Object>
 {
-	private final Log log = LogFactory.getLog(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	// chok.security.menu.service-id
 	private static String MENU_SERVICE_ID = "eureka-client";
 	static
@@ -80,9 +80,11 @@ public class HomeAction extends BaseController<Object>
 		// 通过微服务获取App授权
 		ServiceInstance serviceInstance = loadBalancerClient.choose(MENU_SERVICE_ID);
 		String url = MENU_PROTOCOL + "://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + MENU_URI;
-		log.info("Rest url => " + url);
+		if (log.isInfoEnabled())
+			log.info("Rest url => " + url);
 		JSONObject jo = restTemplate.postForObject(url, req.getParameterValueMap(false, true), JSONObject.class);
-		log.info("Rest result <= " + jo);
+		if (log.isInfoEnabled())
+			log.info("Rest result <= " + jo);
 		printJson(jo);
 	}
 }
