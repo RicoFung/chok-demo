@@ -57,6 +57,7 @@
 		<dependency><groupId>com.chok</groupId><artifactId>chok-cas-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-security</artifactId></dependency>
+		<dependency><groupId>com.chok</groupId><artifactId>chok-redis</artifactId></dependency>
 	</dependencies>
 
 	<!-- maven 打包插件 -->
