@@ -38,7 +38,8 @@ request.setAttribute("account", account);
 %>
 <script type="text/javascript">
 /* js 全局变量 **********************************************************/
-var $g_menuJson = [];
+var $s_menuObj = <%=session.getAttribute("menu") %>;
+var $g_menuJson = $s_menuObj==null?[]:$s_menuObj.data.menus;
 var $g_btnJson = null;
 /************************************************************************/
 $(function(){
@@ -60,6 +61,7 @@ $(function(){
  * 调用菜单api
  */
 function callMenuApi(params) {
+	console.info("callMenuApi");
     $.ajax({
         type: "post",
         async: false,

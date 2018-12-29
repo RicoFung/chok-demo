@@ -132,7 +132,7 @@ function ajaxRequest(params){
         success : function(result){
         		$.LoadingOverlay("hide");
 	        	if(result.success==false){
-	        		$.alert({title: "提示", content: result.msg});
+	        		$.alert({title: "提示", type: "red", content: result.msg});
 	        		return;
 	        	}
 	        //表格加载数据
@@ -140,6 +140,10 @@ function ajaxRequest(params){
 	            total : result.total,
 	            rows : result.rows
 	        });
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+    		$.LoadingOverlay("hide");
+    		$.alert({title: "提示", type: "red", content: jqXHR.status + "<br/>" + jqXHR.responseText});
         }
     });
 }

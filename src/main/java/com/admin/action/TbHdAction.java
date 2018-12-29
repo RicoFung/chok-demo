@@ -96,9 +96,9 @@ public class TbHdAction extends BaseController<TbHd>
 		put("queryParams",req.getParameterValueMap(false, true));
 		put("tips", "Welcome thymeleaf !");
 		// 跳转到thymeleaf
-		return "html/admin/tbhd/query";
+//		return "html/admin/tbhd/query";
 		// 跳转到jsp
-//		return "jsp/admin/tbhd/query";
+		return "jsp/admin/tbhd/query";
 	}
 	
 	@RequestMapping("/query2")

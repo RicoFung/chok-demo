@@ -115,7 +115,9 @@
 
 	<!-- logger -->
     <logger name="org.springframework" level="ERROR" />
+    <logger name="org.springframework.security" level="INFO" />
     <logger name="com.admin" level="DEBUG" />
+    <logger name="chok.security" level="DEBUG" />
 
     <!-- ${LOG_ROOT_LEVEL} 日志级别 -->
     <root level="${LOG_ROOT_LEVEL}">
