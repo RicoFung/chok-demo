@@ -1,5 +1,7 @@
 package com.admin.action;
 
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +13,14 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,6 +35,9 @@ import chok.util.PropertiesUtil;
 public class HomeAction extends BaseController<Object>
 {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
+	private final static String BASIC_AUTH = "admin:admin";
+	
 	// chok.security.menu.service-id
 	private static String MENU_SERVICE_ID = "eureka-client";
 	static
@@ -114,22 +126,30 @@ public class HomeAction extends BaseController<Object>
 		String url = MENU_PROTOCOL + "://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + MENU_URI;
 		if (log.isInfoEnabled())
 			log.info("Rest url => " + url);
-		menuJson = restTemplate.postForObject(url, req.getParameterValueMap(false, true), JSONObject.class);
+		
+		// Basic 认证
+		byte[] encodeAuth = Base64.getEncoder().encode(BASIC_AUTH.getBytes(Charset.forName("US-ASCII")));
+		String authHeader = "Basic " + new String(encodeAuth);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", authHeader);
+		
+		// FORM提交
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		MultiValueMap<String, Object> restParams = new LinkedMultiValueMap<String, Object>();
+		req.getParameterValueMap(false, true).forEach((k, v)->{restParams.add(k, v);});
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(restParams, headers);
+		
+		// JSON提交
+//		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+//		String requestJson = "{\"appid\":\"3\"}";
+//		HttpEntity<String> requestEntity = new HttpEntity<String>(requestJson, headers);
+		
+		ResponseEntity<JSONObject> respJson = restTemplate.exchange(url, HttpMethod.POST, requestEntity, JSONObject.class);
+		menuJson = respJson.getBody();
+		
 		if (log.isInfoEnabled())
 			log.info("Rest result <= " + menuJson);
 		return menuJson;
 	}
 	
-//	public void menu() 
-//	{
-//		// 通过微服务获取App授权
-//		ServiceInstance serviceInstance = loadBalancerClient.choose(MENU_SERVICE_ID);
-//		String url = MENU_PROTOCOL + "://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + MENU_URI;
-//		if (log.isInfoEnabled())
-//			log.info("Rest url => " + url);
-//		JSONObject jo = restTemplate.postForObject(url, req.getParameterValueMap(false, true), JSONObject.class);
-//		if (log.isInfoEnabled())
-//			log.info("Rest result <= " + jo);
-//		printJson(jo);
-//	}
 }
