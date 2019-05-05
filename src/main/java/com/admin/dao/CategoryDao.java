@@ -3,6 +3,7 @@ package com.admin.dao;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import com.admin.entity.Category;
@@ -26,4 +27,14 @@ public class CategoryDao extends BaseDao<Category,Long>
 	{
 		return Category.class;
 	}
+
+	@Async("asyncAddExecutor")
+	public void asyncAdd(String[] r)
+	{
+		Category po = new Category();
+		po.set("name", r[0]);
+		po.set("sort", r[1]);
+		this.add(po);
+	}
+	
 }
