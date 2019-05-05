@@ -26,7 +26,7 @@
 				</form>
 			</div>
 			<div class="box-footer">
-				<a href="${ctx}/templates/upload.xlsx" target="_blank">上传模板.xlsx</a>
+				<a href="${ctx}/excel/upload.xlsx" target="_blank">上传模板.xlsx</a>
 			</div>
 		</div>
 	</section>
@@ -37,79 +37,10 @@
 <link rel="stylesheet" href="${staticexternal}/res/bs/plugin/fileinput/css/fileinput.min.css"/>
 <script type="text/javascript" src="${staticexternal}/res/bs/plugin/fileinput/js/fileinput.min.js"></script>
 <script type="text/javascript" src="${staticexternal}/res/chok/js/chok.view.add.js"></script>
+<script type="text/javascript" src="${staticinternal}${jspaction}.js"></script>
 <script type="text/javascript">
-$(function(){
-	$chok.view.fn.selectSidebarMenu("${param.menuId}","${param.menuPermitId}","${param.menuName}");
-	// 返回列表页
-	$("#back").click(function(){
-		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
-	});
-	//
-	$("#myFile").fileinput({
-	    allowedFileExtensions : ['xlsx'],
-	    uploadUrl: "imp2", // server upload action
-	    uploadAsync: true,
-	    minFileCount: 1,
-	    maxFileCount: 1
-	}).on('filepreupload', function(event, data, previewId, index, jqXHR) {
-       // 进行自定义验证并返回如下所示的错误
-       if (!$chok.validator.check()) {
-           return {
-               message: '表单信息不合法'//,
-               //data: {key1: 'Key 1', detail1: 'Detail 1'}
-           };
-       }
-	}).on('fileuploaderror', function(event, data, msg) {
- 	    var form = data.form, files = data.files, extra = data.extra,
-        response = data.response, reader = data.reader;
-	    var out = '';
-	    $.each(data.files, function(key, file) {
-	        var fname = file.name;
-	        out = out + '<li>' + '上传 # ' + (key + 1) + ' - '  +  fname + ' 失败.' + '</li>';
-	    });
-	    $('#kv-error-2 ul').append(out);
-	    $('#kv-error-2').show(); 
-	}).on('fileuploaded', function(event, data, previewId, index) {
-        var form = data.form, files = data.files, extra = data.extra,
-        response = data.response, reader = data.reader;
-	    if(!response.success){
-	    	alert("上传失败，"+response.msg);
-	    	return;
-	    }
-	    alert("上传文件成功！");
-		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
-	});
-   /*  同步请求
-   }).on('filebatchpreupload', function(event, data, id, index) {
-	    $('#kv-success-2').html('<h4>Upload Status</h4><ul></ul>').hide();
-	}).on('filebatchuploaderror', function(event, data, msg) {
- 	    var form = data.form, files = data.files, extra = data.extra,
-	        response = data.response, reader = data.reader;
-	    var out = '';
-	    $.each(data.files, function(key, file) {
-	        var fname = file.name;
-	        out = out + '<li>' + '上传 # ' + (key + 1) + ' - '  +  fname + ' 失败.' + '</li>';
-	    });
-	    $('#kv-error-2 ul').append(out);
-	    $('#kv-error-2').show(); 
-	}).on('filebatchuploadsuccess', function(event, data, previewId, index) {
- 	   var form = data.form, files = data.files, extra = data.extra,
-	        response = data.response, reader = data.reader;
-	    var out = '';
-	    $.each(data.files, function(key, file) {
-	        var fname = file.name;
-	        out = out + '<li>' + '上传 # ' + (key + 1) + ' - '  +  fname + ' 成功.' + '</li>';
-	    });
-	    $('#kv-success-2 ul').append(out);
-	    $('#kv-success-2').show();
-	    alert("上传图片成功！");
-		location.href = "query?"+$chok.view.fn.getUrlParams("${queryParams}");
-	}); */
-});
-
-/**********************************************************/
-/* 自定义配置 */
-/**********************************************************/
-$chok.view.fn.customize = function(){
-};
+var $param_menuId = "${param.menuId}";
+var $param_menuPermitId = "${param.menuPermitId}";
+var $param_menuName = "${param.menuName}";
+var $queryParams = "${queryParams}";
 </script>

@@ -49,6 +49,7 @@ public class CategoryAction extends BaseController<Category>
 	public String imp() 
 	{
 		put("queryParams",req.getParameterValueMap(false, true));
+		put("jspaction", req.getServletPath());
 		return "jsp/admin/category/imp";
 	}
 	@RequestMapping("/imp2")
