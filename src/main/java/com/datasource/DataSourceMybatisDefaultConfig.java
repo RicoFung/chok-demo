@@ -29,32 +29,30 @@ import com.alibaba.druid.wall.WallFilter;
 
 @Configuration
 @EnableTransactionManagement
-
 // 多环境写法，需事先再application.properites中赋值spring.profiles.active=?
 //@PropertySource(value = "classpath:config/datasource-${spring.profiles.active}.properties", ignoreResourceNotFound = true)
-@PropertySource(value = "classpath:config/datasource.properties", ignoreResourceNotFound = true)
-
-public class DataSourceDefaultConfig 
+@PropertySource(value = "classpath:config/datasource-mybatis.properties", ignoreResourceNotFound = true)
+public class DataSourceMybatisDefaultConfig 
 {
-    @Value("${datasource.default.url}")
+    @Value("${datasource.mybatis.default.url}")
     private String url;
-    @Value("${datasource.default.username}")
+    @Value("${datasource.mybatis.default.username}")
     private String user;
-    @Value("${datasource.default.password}")
+    @Value("${datasource.mybatis.default.password}")
     private String password;
-    @Value("${datasource.default.driver-class-name}")
+    @Value("${datasource.mybatis.default.driver-class-name}")
     private String driverClass;
-    @Value("${datasource.default.filters}")
+    @Value("${datasource.mybatis.default.filters}")
     private String filters;
-    @Value("${datasource.default.initialSize}")
+    @Value("${datasource.mybatis.default.initialSize}")
     private int initialSize;
-    @Value("${datasource.default.maxActive}")
+    @Value("${datasource.mybatis.default.maxActive}")
     private int maxActive;
-    @Value("${datasource.default.minIdle}")
+    @Value("${datasource.mybatis.default.minIdle}")
     private int minIdle;
-    @Value("${datasource.default.maxWait}")
+    @Value("${datasource.mybatis.default.maxWait}")
     private int maxWait;
-    @Value("${datasource.default.mapper-location}")
+    @Value("${datasource.mybatis.default.mapper-location}")
     private String mapperLocation;
     @Value("${mybatis.config-location}")
     private String mybatisConfigLocation;
@@ -82,8 +80,8 @@ public class DataSourceDefaultConfig
         return dataSource;
     }
  
-    @Bean(name = "sqlSessionFactory")
     @DependsOn({ "dataSource" })
+    @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory() throws Exception 
     {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -93,22 +91,22 @@ public class DataSourceDefaultConfig
         return sessionFactory.getObject();
     }
 
+    @DependsOn({ "sqlSessionFactory" })
 	@Bean(name = "sqlSessionTemplate")
-	@DependsOn({ "sqlSessionFactory" })
 	public SqlSessionTemplate sqlSessionTemplate() throws Exception 
 	{
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}
 	
+    @DependsOn({ "dataSource" })
 	@Bean(name = "transactionManager")
-	@DependsOn({ "dataSource" })
 	public DataSourceTransactionManager transactionManager() throws SQLException 
 	{
 		return new DataSourceTransactionManager(dataSource());
 	}
 	
+    @DependsOn({ "transactionManager" })
 	@Bean(name = "transactionInterceptor")
-	@DependsOn({ "transactionManager" })
 	public TransactionInterceptor transactionInterceptor() throws Throwable
 	{
 		Properties prop = new Properties();

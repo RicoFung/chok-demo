@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,37 +19,37 @@ import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 
 //@Configuration
-//@PropertySource(value = "classpath:config/datasource.properties", ignoreResourceNotFound = true)
-public class DataSourceFirstConfig 
+//@PropertySource(value = "classpath:config/datasource-mybatis.properties", ignoreResourceNotFound = true)
+public class DataSourceMybatisSecondConfig 
 {
-    @Value("${datasource.first.unique-resource-name}")
+    @Value("${datasource.mybatis.second.unique-resource-name}")
     private String uniqueResourceName;
-    @Value("${datasource.first.url}")
+    @Value("${datasource.mybatis.second.url}")
     private String url;
-    @Value("${datasource.first.username}")
+    @Value("${datasource.mybatis.second.username}")
     private String user;
-    @Value("${datasource.first.password}")
+    @Value("${datasource.mybatis.second.password}")
     private String password;
-    @Value("${datasource.first.driver-class-name}")
+    @Value("${datasource.mybatis.second.driver-class-name}")
     private String driverClass;
-    @Value("${datasource.first.filters}")
+    @Value("${datasource.mybatis.second.filters}")
     private String filters;
-    @Value("${datasource.first.initialSize}")
+    @Value("${datasource.mybatis.second.initialSize}")
     private int initialSize;
-    @Value("${datasource.first.maxActive}")
+    @Value("${datasource.mybatis.second.maxActive}")
     private int maxActive;
-    @Value("${datasource.first.minIdle}")
+    @Value("${datasource.mybatis.second.minIdle}")
     private int minIdle;
-    @Value("${datasource.first.maxWait}")
+    @Value("${datasource.mybatis.second.maxWait}")
     private int maxWait;
-    @Value("${datasource.first.mapper-location}")
+    @Value("${datasource.mybatis.second.mapper-location}")
     private String mapperLocation;
     @Value("${mybatis.config-location}")
     private String mybatisConfigLocation;
  
-    @Bean(name = "dataSourceFirst")
+    @Bean(name = "dataSourceSecond")
     @Primary
-    public DataSource dataSourceFirst() throws SQLException 
+    public DataSource dataSourceSecond() throws SQLException 
     {
         DruidXADataSource dataSource = new DruidXADataSource();
         dataSource.setDriverClassName(driverClass);
@@ -71,31 +70,31 @@ public class DataSourceFirstConfig
     }
 
 //	  打开后，分布式事务JTA失效
-//    @Bean(name = "transactionManagerFirst")
-//    @DependsOn({ "dataSourceFirst" })
+//    @Bean(name = "transactionManagerSecond")
+//    @DependsOn({ "dataSourceSecond" })
 //    @Primary
-//    public DataSourceTransactionManager transactionManagerFirst() 
+//    public DataSourceTransactionManager transactionManagerSecond() 
 //    {
-//        return new DataSourceTransactionManager(dataSourceFirst());
+//        return new DataSourceTransactionManager(dataSourceSecond());
 //    }
  
-    @Bean(name = "sqlSessionFactoryFirst")
-    @DependsOn({ "dataSourceFirst" })
+    @Bean(name = "sqlSessionFactorySecond")
+    @DependsOn({ "dataSourceSecond" })
     @Primary
-    public SqlSessionFactory sqlSessionFactoryFirst() throws Exception 
+    public SqlSessionFactory sqlSessionFactorySecond() throws Exception 
     {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSourceFirst());
+        sessionFactory.setDataSource(dataSourceSecond());
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocation));
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(mybatisConfigLocation));
         return sessionFactory.getObject();
     }
 
-	@Bean(name = "sqlSessionTemplateFirst")
-    @DependsOn({ "sqlSessionFactoryFirst" })
+	@Bean(name = "sqlSessionTemplateSecond")
+    @DependsOn({ "sqlSessionFactorySecond" })
 	@Primary
-	public SqlSessionTemplate sqlSessionTemplateFirst() throws Exception 
+	public SqlSessionTemplate sqlSessionTemplateSecond() throws Exception 
 	{
-		return new SqlSessionTemplate(sqlSessionFactoryFirst());
+		return new SqlSessionTemplate(sqlSessionFactorySecond());
 	}
 }

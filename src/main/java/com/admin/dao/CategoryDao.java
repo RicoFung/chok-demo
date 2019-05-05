@@ -11,17 +11,17 @@ import com.admin.entity.Category;
 import chok.devwork.springboot.BaseDao;
 
 @Repository
-public class CategoryDao extends BaseDao<Category,Long>
+public class CategoryDao extends BaseDao<Category, Long>
 {
-	@Resource//(name = "firstSqlSessionTemplate")
-	private SqlSession sqlSession;
+	@Resource // (name = "firstSqlSessionTemplate")
+	private SqlSession		sqlSession;
 
 	@Override
 	protected SqlSession getSqlSession()
 	{
 		return sqlSession;
 	}
-	
+
 	@Override
 	public Class<Category> getEntityClass()
 	{
@@ -36,5 +36,5 @@ public class CategoryDao extends BaseDao<Category,Long>
 		po.set("sort", r[1]);
 		this.add(po);
 	}
-	
+
 }

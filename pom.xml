@@ -46,6 +46,8 @@
 		<dependency><groupId>org.springframework.security.oauth</groupId><artifactId>spring-security-oauth2</artifactId></dependency>
 		<!-- spring-boot-security oauth2-autoconfigure -->
         <dependency><groupId>org.springframework.security.oauth.boot</groupId><artifactId>spring-security-oauth2-autoconfigure</artifactId></dependency>
+		<!-- spring-boot jdbc -->
+		<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-jdbc</artifactId></dependency>
 		<!-- spring-boot druid -->
 		<dependency><groupId>com.alibaba</groupId><artifactId>druid-spring-boot-starter</artifactId></dependency>
 		<!-- spring-boot atomikos 分布式事务 -->
@@ -58,6 +60,11 @@
 		<dependency><groupId>com.chok</groupId><artifactId>chok-sso-client</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-security</artifactId></dependency>
 		<dependency><groupId>com.chok</groupId><artifactId>chok-redis</artifactId></dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<!-- maven 打包插件 -->
