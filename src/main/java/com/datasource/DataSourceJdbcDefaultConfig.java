@@ -27,8 +27,8 @@ import com.alibaba.druid.wall.WallFilter;
 @Configuration
 @EnableTransactionManagement
 // 多环境写法，需事先再application.properites中赋值spring.profiles.active=?
-//@PropertySource(value = "classpath:config/datasource-${spring.profiles.active}.properties", ignoreResourceNotFound = true)
-@PropertySource(value = "classpath:config/datasource-jdbc.properties", ignoreResourceNotFound = true)
+//@PropertySource(value = "classpath:datasource-${spring.profiles.active}.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:datasource-jdbc.properties", ignoreResourceNotFound = true)
 public class DataSourceJdbcDefaultConfig 
 {
     @Value("${datasource.jdbc.default.url}")

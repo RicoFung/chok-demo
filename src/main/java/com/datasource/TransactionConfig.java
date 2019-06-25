@@ -21,7 +21,7 @@ import com.atomikos.icatch.jta.UserTransactionManager;
 // 打开注释，开启分布式事务
 //@Configuration
 //@EnableTransactionManagement
-//@PropertySource(value = "classpath:config/jta.properties", ignoreResourceNotFound = true)
+//@PropertySource(value = "classpath:jta.properties", ignoreResourceNotFound = true)
 public class TransactionConfig
 {
 	@Bean(name = "userTransaction")

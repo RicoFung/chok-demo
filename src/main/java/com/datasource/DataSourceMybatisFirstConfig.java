@@ -20,7 +20,7 @@ import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 
 //@Configuration
-//@PropertySource(value = "classpath:config/datasource-mybatisS.properties", ignoreResourceNotFound = true)
+//@PropertySource(value = "classpath:datasource-mybatisS.properties", ignoreResourceNotFound = true)
 public class DataSourceMybatisFirstConfig 
 {
     @Value("${datasource.mybatis.first.unique-resource-name}")
