@@ -57,8 +57,8 @@ public class DataSourceMybatisDefaultConfig
     @Value("${mybatis.config-location}")
     private String mybatisConfigLocation;
  
-    @Bean(name = "dataSource")
-    public DataSource dataSource() throws SQLException 
+    @Bean(name = "dataSourceDefault")
+    public DataSource dataSourceDefault() throws SQLException 
     {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClass);
@@ -75,39 +75,39 @@ public class DataSourceMybatisDefaultConfig
         dataSource.setFilters(filters);
         // 自定义 filters
         List<Filter> filters = new ArrayList<Filter>();
-        filters.add(wallFilter());
+        filters.add(wallFilterDefault());
         dataSource.setProxyFilters(filters);
         return dataSource;
     }
  
-    @DependsOn({ "dataSource" })
-    @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory() throws Exception 
+    @DependsOn({ "dataSourceDefault" })
+    @Bean(name = "sqlSessionFactoryDefault")
+    public SqlSessionFactory sqlSessionFactoryDefault() throws Exception 
     {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setDataSource(dataSourceDefault());
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocation));
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(mybatisConfigLocation));
         return sessionFactory.getObject();
     }
 
-    @DependsOn({ "sqlSessionFactory" })
-	@Bean(name = "sqlSessionTemplate")
-	public SqlSessionTemplate sqlSessionTemplate() throws Exception 
+    @DependsOn({ "sqlSessionFactoryDefault" })
+	@Bean(name = "sqlSessionTemplateDefault")
+	public SqlSessionTemplate sqlSessionTemplateDefault() throws Exception 
 	{
-		return new SqlSessionTemplate(sqlSessionFactory());
+		return new SqlSessionTemplate(sqlSessionFactoryDefault());
 	}
 	
-    @DependsOn({ "dataSource" })
-	@Bean(name = "transactionManager")
-	public DataSourceTransactionManager transactionManager() throws SQLException 
+    @DependsOn({ "dataSourceDefault" })
+	@Bean(name = "transactionManagerDefault")
+	public DataSourceTransactionManager transactionManagerDefault() throws SQLException 
 	{
-		return new DataSourceTransactionManager(dataSource());
+		return new DataSourceTransactionManager(dataSourceDefault());
 	}
 	
-    @DependsOn({ "transactionManager" })
-	@Bean(name = "transactionInterceptor")
-	public TransactionInterceptor transactionInterceptor() throws Throwable
+    @DependsOn({ "transactionManagerDefault" })
+	@Bean(name = "transactionInterceptorDefault")
+	public TransactionInterceptor transactionInterceptorDefault() throws Throwable
 	{
 		Properties prop = new Properties();
 		prop.setProperty("add*", "PROPAGATION_REQUIRED,-Exception");
@@ -117,35 +117,35 @@ public class DataSourceMybatisDefaultConfig
 		prop.setProperty("get*", "PROPAGATION_NEVER,readOnly");
 		prop.setProperty("query*", "PROPAGATION_NEVER,readOnly");
 		TransactionInterceptor ti = new TransactionInterceptor();
-		ti.setTransactionManager(transactionManager());
+		ti.setTransactionManager(transactionManagerDefault());
 		ti.setTransactionAttributes(prop);
 		return ti;
 	}
 
-	@Bean(name = "beanNameAutoProxyCreator")
-	public BeanNameAutoProxyCreator beanNameAutoProxyCreator() throws Throwable
+	@Bean(name = "beanNameAutoProxyCreatorDefault")
+	public BeanNameAutoProxyCreator beanNameAutoProxyCreatorDefault() throws Throwable
 	{
 		BeanNameAutoProxyCreator bpc = new BeanNameAutoProxyCreator();
 		bpc.setProxyTargetClass(true);
 		bpc.setBeanNames("*Service");
-		bpc.setInterceptorNames("transactionInterceptor");
+		bpc.setInterceptorNames("transactionInterceptorDefault");
 		return bpc;
 	}
 	
-	@Bean(name = "wallConfig")
-	public WallConfig wallConfig()
+	@Bean(name = "wallConfigDefault")
+	public WallConfig wallConfigDefault()
 	{
 		WallConfig wc = new WallConfig();
 		wc.setMultiStatementAllow(true); // 允许同时执行多条sql
 		return wc;
 	}
 	
-	@Bean(name = "wallFilter")
-	public WallFilter wallFilter()
+	@Bean(name = "wallFilterDefault")
+	public WallFilter wallFilterDefault()
 	{
 		WallFilter wf = new WallFilter();
 //		wf.setDbType("mysql"); // 指定dbType
-		wf.setConfig(wallConfig()); // 读取自定义wall-config
+		wf.setConfig(wallConfigDefault()); // 读取自定义wall-config
 		wf.setLogViolation(true); // 允许 对被认为是攻击的SQL进行LOG.error输出
 		wf.setThrowException(false); // 禁止 对被认为是攻击的SQL抛出SQLExcepton
 		return wf;
